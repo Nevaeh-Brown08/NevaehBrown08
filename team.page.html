@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Team Spotlight — Group of Teens</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* Page basics */
+    body {
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      padding-top: 64px; /* make room for fixed nav */
+      color: #213241;
+      background: #f6f9fc;
+      line-height: 1.45;
+    }
+
+    /* Fixed navigation (demonstrates position property) */
+    header.site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: linear-gradient(90deg,#4b79a1,#283e51);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+
+    header .brand {
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-right: 32px;
+    }
+
+    nav.site-nav a {
+      color: rgba(255,255,255,0.95);
+      text-decoration: none;
+      margin-right: 18px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    nav.site-nav a:hover { text-decoration: underline; }
+
+    /* Page wrapper */
+    .container {
+      max-width: 900px;
+      margin: 24px auto;
+      padding: 18px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 8px 18px rgba(16,40,60,0.06);
+      overflow: visible;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.6rem;
+      color: #16212b;
+    }
+
+    /* Team member card - uses float for layout */
+    .member {
+      margin: 20px 0;
+      padding: 12px;
+      border-radius: 6px;
+      background: linear-gradient(180deg,#ffffff,#fbfdff);
+      position: relative; /* establishes containing block for absolutely positioned badge */
+      overflow: hidden;   /* contain floated image if not clearing */
+      border: 1px solid #eef3f7;
+    }
+
+    /* Floated image on the left (common layout) */
+    .member .photo {
+      float: left;
+      width: 120px;
+      height: 120px;
+      margin-right: 16px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(18,30,40,0.06);
+      border: 2px solid #fff;
+    }
+
+    /* Example of a member with the image floated to the right */
+    .member.photo-right .photo {
+      float: right;
+      margin-left: 16px;
+      margin-right: 0;
+    }
+
+    /* Bio text wraps around the floated image */
+    .member h2 {
+      margin: 4px 0 6px 0;
+      font-size: 1.05rem;
+    }
+
+    .member p {
+      margin: 0 0 8px 0;
+      color: #334552;
+      font-size: 0.96rem;
+    }
+
+    /* Small role label positioned absolutely (demonstrates position usage) */
+    .badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ffdd57;
+      color: #2b2b2b;
+      padding: 6px 10px;
+      font-weight: 700;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    /* Clearfix to ensure floats don't break layout where needed */
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 560px) {
+      .member .photo {
+        float: none;
+        display: block;
+        margin: 0 0 12px 0;
+        width: 100%;
+        height: auto;
+      }
+
+      header.site-header { padding: 0 12px; }
+      nav.site-nav a { margin-right: 12px; font-size: 0.9rem; }
+      body { padding-top: 72px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="brand">Teen Crew</div>
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Events</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container" role="main">
+    <h1>Meet the Team</h1>
+    <p>Welcome to our spotlight — a cheerful group of teens who run community projects and weekend meetups. Below each member has a photo and a short bio.</p>
+
+    <!-- Member 1 -->
+    <section class="member clearfix" aria-labelledby="m1">
+      <img class="photo" src="https://via.placeholder.com/300x300.png?text=Sam" alt="Sam smiling" />
+      <div class="badge">Lead</div>
+      <h2 id="m1">Sam Rivera</h2>
+      <p>Sam organizes our weekend coding workshops and loves robotics. They are known for attention to detail and bringing snacks.</p>
+      <p>Interests: coding, robotics, skateboarding.</p>
+    </section>
+
+    <!-- Member 2 -->
+    <section class="member clearfix" aria-labelledby="m2">
+      <img class="photo" src="https://via.placeholder.com/300x300.png?text=Aisha" alt="Aisha portrait" />
+      <div class="badge">Coordinator</div>
+      <h2 id="m2">Aisha Patel</h2>
+      <p>Aisha coordinates outreach and social media for the group. She designs flyers and makes sure our events are welcoming to newcomers.</p>
+      <p>Interests: graphic design, photography, volunteer work.</p>
+    </section>
+
+    <!-- Member 3 (photo floated to right to show float versatility) -->
+    <section class="member photo-right clearfix" aria-labelledby="m3">
+      <img class="photo" src="https://via.placeholder.com/300x300.png?text=Jordan" alt="Jordan portrait" />
+      <div class="badge">Treasurer</div>
+      <h2 id="m3">Jordan Lee</h2>
+      <p>Jordan manages the group's budget and logistics. They also run a small game-dev club where members learn to build games together.</p>
+      <p>Interests: game development, math puzzles, hiking.</p>
+    </section>
+
+    <!-- Member 4 -->
+    <section class="member clearfix" aria-labelledby="m4">
+      <img class="photo" src="https://via.placeholder.com/300x300.png?text=Riley" alt="Riley portrait" />
+      <div class="badge">Outreach</div>
+      <h2 id="m4">Riley Gomez</h2>
+      <p>Riley focuses on community partnerships and organizes field trips. They bring energy to meetings and keep everyone connected.</p>
+      <p>Interests: community engagement, music, biking.</p>
+    </section>
+
+    <!-- Extra member (optional) -->
+    <section class="member clearfix" aria-labelledby="m5">
+      <img class="photo" src="https://via.placeholder.com/300x300.png?text=Terry" alt="Terry portrait" />
+      <div class="badge">Volunteer</div>
+      <h2 id="m5">Terry Nguyen</h2>
+      <p>Terry volunteers at events, helps set up equipment, and mentors new members in introductory workshops.</p>
+      <p>Interests: mentoring, coding, board games.</p>
+    </section>
+
+  </main>
+</body>
+</html>
