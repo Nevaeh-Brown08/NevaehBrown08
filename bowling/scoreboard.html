@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Bowling Scorecard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Friday Night Bowling — Scorecard</h1>
+    <nav>
+      <a href="golf-scorecard.html">Golf</a>
+      <a href="baseball-scorecard.html">Baseball</a>
+      <a href="bowling-scorecard.html">Bowling</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="bowling-title">
+      <h2 id="bowling-title">Frames and Scores</h2>
+      <p class="lead">3 players across 10 frames — spaces are left for marks and totals.</p>
+
+      <table class="scorecard" id="bowling">
+        <caption>10-Frame Bowling Scorecard</caption>
+
+        <colgroup>
+          <col class="col-frame" />
+          <col />
+          <col />
+          <col />
+        </colgroup>
+
+        <thead>
+          <tr>
+            <th>Frame</th>
+            <th>Jordan</th>
+            <th>Lee</th>
+            <th>Morgan</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr><td>1</td><td>9</td><td>8</td><td>10</td></tr>
+          <tr><td>2</td><td>10</td><td>7</td><td>9</td></tr>
+          <tr><td>3</td><td>7</td><td>9</td><td>8</td></tr>
+          <tr><td>4</td><td>8</td><td>10</td><td>7</td></tr>
+          <tr><td>5</td><td>9</td><td>8</td><td>8</td></tr>
+          <tr><td>6</td><td>10</td><td>9</td><td>10</td></tr>
+          <tr><td>7</td><td>6</td><td>7</td><td>9</td></tr>
+          <tr><td>8</td><td>8</td><td>8</td><td>8</td></tr>
+          <tr><td>9</td><td>9</td><td>9</td><td>9</td></tr>
+          <tr><td>10</td><td>20</td><td>18</td><td>19</td></tr>
+
+          <tr class="total"><td>Total</td><td>96</td><td>91</td><td>97</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
