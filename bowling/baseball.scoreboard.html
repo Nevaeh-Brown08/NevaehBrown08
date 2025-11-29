@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Baseball Scorecard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Riverside Little League — Scorecard</h1>
+    <nav>
+      <a href="golf-scorecard.html">Golf</a>
+      <a href="baseball-scorecard.html">Baseball</a>
+      <a href="bowling-scorecard.html">Bowling</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="baseball-title">
+      <h2 id="baseball-title">Innings and Runs</h2>
+      <p class="lead">A quick scoreboard showing runs by inning for each team.</p>
+
+      <table class="scorecard" id="baseball">
+        <caption>9-Inning Baseball Scorecard</caption>
+
+        <colgroup>
+          <col class="col-inning" />
+          <col />
+          <col />
+          <col class="col-total" />
+        </colgroup>
+
+        <thead>
+          <tr>
+            <th>Inning</th>
+            <th>Tigers</th>
+            <th>Falcons</th>
+            <th>R</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>2</td><td>2</td><td>0</td><td>2</td></tr>
+          <tr><td>3</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>4</td><td>1</td><td>2</td><td>3</td></tr>
+          <tr><td>5</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>6</td><td>3</td><td>0</td><td>3</td></tr>
+          <tr><td>7</td><td>0</td><td>1</td><td>1</td></tr>
+          <tr><td>8</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>9</td><td>1</td><td>0</td><td>1</td></tr>
+
+          <tr class="total"><td>Totals</td><td>7</td><td>4</td><td>11</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
