@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Puzzle Project — Butterflies</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /*
+      Puzzle project:
+      - Put your downloaded puzzle images inside an "images/" folder next to this file.
+      - Example file names used below: piece-01.jpg ... piece-16.jpg and faulty-piece.jpg
+      - The faulty piece is present in the DOM but hidden with display:none.
+    */
+
+    :root{
+      --puzzle-size: 480px;   /* assembled puzzle size */
+      --cols: 4;              /* number of columns in the puzzle */
+      --gap: 4px;             /* gap between pieces */
+      --page-max: 1100px;
+      --accent: #3b82f6;
+      --muted: #6b7280;
+    }
+
+    /* Page layout using CSS Grid (header, intro, puzzle, notes/props, footer) */
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: linear-gradient(180deg,#f7fbff,#ffffff);
+      color: #0f172a;
+      display: flex;
+      justify-content: center;
+      padding: 28px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: var(--page-max);
+      display: grid;
+      grid-template-columns: 1fr 520px;
+      gap: 20px;
+      grid-template-areas:
+        "header header"
+        "intro puzzle"
+        "props puzzle"
+        "footer footer";
+      align-items: start;
+    }
+
+    header {
+      grid-area: header;
+      background: linear-gradient(90deg,#0ea5e9,#0369a1);
+      color: white;
+      padding: 18px 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(3,7,18,0.08);
+    }
+
+    header h1 { margin: 0; font-size: 1.25rem; }
+    header p { margin: 6px 0 0 0; opacity: 0.95; font-size: 0.95rem; }
+
+    .intro {
+      grid-area: intro;
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px;
+      border: 1px solid #e6eef6;
+      box-shadow: 0 8px 20px rgba(8,20,40,0.03);
+    }
+
+    .intro h2 { margin-top: 0; }
+    .meta {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* Puzzle area (right column) */
+    .puzzle-area {
+      grid-area: puzzle;
+      background: #fff;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #e6eef6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 28px rgba(8,20,40,0.04);
+    }
+
+    .puzzle-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .puzzle-frame {
+      width: var(--puzzle-size);
+      height: var(--puzzle-size);
+      background: linear-gradient(180deg,#e6f0ff,#ffffff);
+      border-radius: 8px;
+      padding: var(--gap);
+      box-sizing: border-box;
+      display: flex;           /* flex container assembles pieces */
+      flex-wrap: wrap;         /* let pieces wrap into rows */
+      gap: var(--gap);
+      align-content: flex-start;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid rgba(10,20,40,0.04);
+    }
+
+    /* Each piece is a flex item. Calculate size so exactly --cols items fit per row. */
+    .piece {
+      flex: 0 0 calc((var(--puzzle-size) - (var(--cols) + 1) * var(--gap)) / var(--cols));
+      height: calc((var(--puzzle-size) - (var(--cols) + 1) * var(--gap)) / var(--cols));
+      background: #f8fafc;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(6,12,24,0.06);
+      display: block; /* ensure visible flex item */
+    }
+
+    .piece img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Use order to place pieces in the solved arrangement */
+    .p1  { order: 1;  }  .p2  { order: 2;  }  .p3  { order: 3;  }  .p4  { order: 4;  }
+    .p5  { order: 5;  }  .p6  { order: 6;  }  .p7  { order: 7;  }  .p8  { order: 8;  }
+    .p9  { order: 9;  }  .p10 { order: 10; }  .p11 { order: 11; }  .p12 { order: 12; }
+    .p13 { order: 13; }  .p14 { order: 14; }  .p15 { order: 15; }  .p16 { order: 16; }
+
+    /* The trick/faulty piece is present but hidden using display:none */
+    .faulty {
+      display: none;
+    }
+
+    .props {
+      grid-area: props;
+      background: #fff;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid #e6eef6;
+    }
+
+    .props h3 { margin-top: 0; }
+    .props ul { margin: 8px 0; padding-left: 20px; color: var(--muted); }
+
+    footer {
+      grid-area: footer;
+      text-align: right;
+      padding-top: 6px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Responsive: stack into single column on narrow viewports */
+    @media (max-width: 920px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "header"
+          "intro"
+          "puzzle"
+          "props"
+          "footer";
+      }
+
+      .puzzle-area { padding: 12px; }
+      .puzzle-frame {
+        width: min(92vw, var(--puzzle-size));
+        height: min(92vw, var(--puzzle-size));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" role="document">
+    <header>
+      <h1>Student: Taylor Morgan — Puzzle: Butterflies</h1>
+      <p>CSS Grid page layout + Flexbox puzzle assembly (images in images/ folder)</p>
+    </header>
+
+    <section class="intro" aria-labelledby="intro-title">
+      <h2 id="intro-title">Project Overview</h2>
+      <p class="meta">This assignment demonstrates a CSS Grid page with a Flexbox-powered puzzle assembled from image pieces. Place the downloaded puzzle images into an "images" folder and keep the filenames consistent with the src attributes below.</p>
+      <p><strong>Required sections:</strong> identification, puzzle (flex), properties/notes, and completion date (footer).</p>
+    </section>
+
+    <aside class="puzzle-area" aria-labelledby="puzzle-heading">
+      <div class="puzzle-wrap">
+        <h3 id="puzzle-heading" style="margin:0; text-align:center;">Assembled Puzzle (Butterflies)</h3>
+
+        <!-- Flex container: .puzzle-frame -->
+        <div class="puzzle-frame" role="img" aria-label="Assembled butterflies puzzle">
+          <!-- Replace the src paths below with the images you downloaded into images/ -->
+          <div class="piece p1"><img src="images/piece-01.jpg" alt="puzzle piece 1"></div>
+          <div class="piece p2"><img src="images/piece-02.jpg" alt="puzzle piece 2"></div>
+          <div class="piece p3"><img src="images/piece-03.jpg" alt="puzzle piece 3"></div>
+          <div class="piece p4"><img src="images/piece-04.jpg" alt="puzzle piece 4"></div>
+
+          <div class="piece p5"><img src="images/piece-05.jpg" alt="puzzle piece 5"></div>
+          <div class="piece p6"><img src="images/piece-06.jpg" alt="puzzle piece 6"></div>
+          <div class="piece p7"><img src="images/piece-07.jpg" alt="puzzle piece 7"></div>
+          <div class="piece p8"><img src="images/piece-08.jpg" alt="puzzle piece 8"></div>
+
+          <div class="piece p9"><img src="images/piece-09.jpg" alt="puzzle piece 9"></div>
+          <div class="piece p10"><img src="images/piece-10.jpg" alt="puzzle piece 10"></div>
+          <div class="piece p11"><img src="images/piece-11.jpg" alt="puzzle piece 11"></div>
+          <div class="piece p12"><img src="images/piece-12.jpg" alt="puzzle piece 12"></div>
+
+          <div class="piece p13"><img src="images/piece-13.jpg" alt="puzzle piece 13"></div>
+          <div class="piece p14"><img src="images/piece-14.jpg" alt="puzzle piece 14"></div>
+          <div class="piece p15"><img src="images/piece-15.jpg" alt="puzzle piece 15"></div>
+          <div class="piece p16"><img src="images/piece-16.jpg" alt="puzzle piece 16"></div>
+
+          <!-- Faulty piece included but hidden -->
+          <div class="piece faulty"><img src="images/faulty-piece.jpg" alt="faulty puzzle piece (hidden)"></div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="props" aria-labelledby="props-title">
+      <h3 id="props-title">Flexbox & Grid Notes</h3>
+      <ul>
+        <li>Grid is used to structure the page: header, intro, puzzle area, properties, footer.</li>
+        <li>Flexbox is used inside <code>.puzzle-frame</code> (display:flex) with <code>flex-wrap:wrap</code> to build rows.</li>
+        <li>Each piece uses <code>flex:0 0 &lt;calculated size&gt;</code> so pieces are exact squares and fit exactly <code>--cols</code> per row.</li>
+        <li>The <code>order</code> property (.p1.. .p16) places pieces in the solved arrangement regardless of file name order.</li>
+        <li>The faulty piece exists in the HTML (required) but is hidden using <code>display:none</code> on <code>.faulty</code>.</li>
+      </ul>
+      <p class="meta">Keep all puzzle images inside an images/ folder in the same project directory before uploading to GitHub.</p>
+    </section>
+
+    <footer>
+      Completed: 2025-11-29
+    </footer>
+  </div>
+</body>
+</html>
