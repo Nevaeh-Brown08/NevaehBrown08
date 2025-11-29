@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Golf Scorecard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Sunnyvale Golf Club — Scorecard</h1>
+    <nav>
+      <a href="golf-scorecard.html">Golf</a>
+      <a href="baseball-scorecard.html">Baseball</a>
+      <a href="bowling-scorecard.html">Bowling</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-labelledby="golf-title">
+      <h2 id="golf-title">Round-by-Round Scores</h2>
+      <p class="lead">4 players over 9 holes. Each column after "Hole" is a player's total for that hole.</p>
+
+      <table class="scorecard" id="golf">
+        <caption>9-Hole Golf Scorecard</caption>
+
+        <colgroup>
+          <col class="col-hole">
+          <col>
+          <col>
+          <col>
+          <col>
+        </colgroup>
+
+        <thead>
+          <tr>
+            <th>Hole</th>
+            <th>Avery</th>
+            <th>Blair</th>
+            <th>Casey</th>
+            <th>Drew</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr><td>1</td><td>4</td><td>5</td><td>4</td><td>3</td></tr>
+          <tr><td>2</td><td>3</td><td>4</td><td>4</td><td>4</td></tr>
+          <tr><td>3</td><td>5</td><td>4</td><td>6</td><td>5</td></tr>
+          <tr><td>4</td><td>4</td><td>3</td><td>4</td><td>4</td></tr>
+          <tr><td>5</td><td>3</td><td>4</td><td>3</td><td>4</td></tr>
+          <tr><td>6</td><td>4</td><td>5</td><td>4</td><td>4</td></tr>
+          <tr><td>7</td><td>5</td><td>4</td><td>5</td><td>6</td></tr>
+          <tr><td>8</td><td>3</td><td>4</td><td>3</td><td>3</td></tr>
+          <tr><td>9</td><td>4</td><td>4</td><td>4</td><td>5</td></tr>
+
+          <tr class="total"><td>Total</td><td>35</td><td>37</td><td>37</td><td>38</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
