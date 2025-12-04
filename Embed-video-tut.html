@@ -1,0 +1,160 @@
+/* styles.css
+   External stylesheet for the YouTube embed tutorial page.
+   Replace screenshots in images/ with your cropped images before uploading.
+*/
+
+/* ---------- Root variables and resets ---------- */
+:root{
+  --max-width: 900px;
+
+  /* Color palette: baby pink background, darker rose pink text/accent */
+  --page-bg: linear-gradient(180deg,#fff5f8,#ffeef6); /* light baby pink gradient */
+  --accent: #b23b55;    /* darker rose pink for headings/accents */
+  --muted: #8a3a4f;     /* muted rose for captions/notes */
+  --card-bg: #ffffff;
+  --radius: 10px;
+  --gap: 18px;
+}
+
+* { box-sizing: border-box; }
+
+html,body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--page-bg);
+  color: var(--accent);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Layout containers ---------- */
+.container {
+  width: 92%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 18px 0;
+}
+
+/* Header */
+.site-header {
+  background: linear-gradient(90deg,#ffd6e0,#ffb3c6); /* soft complementary pink header */
+  color: #58172a; /* deep rose for header text */
+  border-radius: var(--radius);
+  padding: 18px;
+  margin: 18px auto;
+  box-shadow: 0 8px 22px rgba(3,7,18,0.06);
+}
+.site-header h1 { margin: 0 0 6px 0; font-size: 1.25rem; color: #58172a; }
+.site-header .subtitle { margin: 0; opacity: 0.95; font-size: 0.95rem; color: #5d2030; }
+
+/* Main grid: organizes the page into clear sections */
+main.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Section card visual style */
+.grid-section {
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(90,30,45,0.04);
+  box-shadow: 0 6px 18px rgba(12,40,70,0.03);
+}
+
+/* ---------- Step/article styles ---------- */
+.step { margin-bottom: 14px; }
+.step h3 { margin: 6px 0 8px 0; color: var(--accent); }
+.step p { margin: 0 0 8px 0; color: #5c2836; }
+
+/* Figure styling: images should be cropped before saving, we only size them here */
+figure {
+  margin: 10px 0 0 0;
+  display: block;
+}
+figure img {
+  /* Keep screenshots tight and centered; assume they are already cropped */
+  max-width: 520px;
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+  border: 1px solid rgba(90,30,45,0.04);
+  box-shadow: 0 6px 14px rgba(8,20,40,0.04);
+}
+figure figcaption {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------- Code snippet styling ---------- */
+.code-snippet {
+  background: linear-gradient(180deg,#ffeef6,#fff8fa);
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid rgba(90,30,45,0.03);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+  font-size: 0.9rem;
+  color: #58172a;
+}
+
+/* ---------- Responsive video wrapper and iframe ---------- */
+.video-wrapper {
+  /* Responsive 16:9 ratio */
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+  box-shadow: 0 10px 28px rgba(3,7,18,0.06);
+}
+.video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  margin: 18px auto;
+  padding: 12px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ---------- Accessibility & interaction (pseudo-classes used) ---------- */
+/* Pseudo-class: subtle focus outline for interactive code snippet */
+.code-snippet:focus {
+  outline: 3px solid rgba(178,59,85,0.18);
+  outline-offset: 4px;
+}
+
+/* Pseudo-class: hover on figures to slightly lift the screenshot */
+figure img:hover {
+  transform: translateY(-4px);
+  transition: transform 160ms ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (min-width: 920px) {
+  main.container {
+    grid-template-columns: 1fr 480px;
+    align-items: start;
+  }
+  .grid-section { padding: 20px; }
+  .video-wrapper { max-width: 480px; }
+}
+
+/* Smaller screens */
+@media (max-width: 520px) {
+  .code-snippet { font-size: 0.82rem; }
+  figure img { border-radius: 4px; }
+}
