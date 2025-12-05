@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Study Flashcards — CSS Reveal Activity</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* Page variables */
+    :root{
+      --bg: #fff7fb;
+      --card-bg: #ffffff;
+      --accent: #ad2f52;
+      --muted: #6b3a45;
+      --card-radius: 12px;
+      --gap: 18px;
+      --max-width: 1100px;
+    }
+
+    /* Reset & layout */
+    * { box-sizing: border-box; }
+    html,body { height: 100%; margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; background: var(--bg); color: var(--muted); -webkit-font-smoothing:antialiased; }
+    .wrap { width: 92%; max-width: var(--max-width); margin: 28px auto; }
+
+    /* Title with entry animation (plays once on load) */
+    header.title {
+      text-align: center;
+      margin-bottom: 18px;
+      animation: titleEntrance 900ms cubic-bezier(.2,.8,.2,1) 0s 1 both;
+    }
+    header.title h1 { margin: 0; color: var(--accent); font-size: 1.6rem; letter-spacing: 0.2px; }
+    header.title p { margin: 8px 0 0 0; color: #5a2b37; }
+
+    @keyframes titleEntrance {
+      from { transform: translateY(-18px) scale(0.98); opacity: 0; filter: blur(6px); }
+      to   { transform: translateY(0) scale(1); opacity: 1; filter: blur(0); }
+    }
+
+    /* Subheading animation for the cards container (stagger feel) */
+    .grid {
+      display: grid;
+      gap: var(--gap);
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      align-items: start;
+      animation: gridEnter 700ms ease 120ms 1 both;
+    }
+    @keyframes gridEnter {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card styling */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(80,30,40,0.06);
+      min-height: 160px;
+      cursor: pointer;
+      transition: transform 280ms cubic-bezier(.2,.9,.2,1), box-shadow 280ms;
+      border: 1px solid rgba(140,60,70,0.06);
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+    .card:focus,
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(80,30,40,0.12);
+    }
+
+    /* Question (always visible) */
+    .question {
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 0 8px 0;
+      font-size: 1rem;
+    }
+    .hint {
+      font-size: 0.88rem;
+      margin: 0 0 12px 0;
+      color: #6b4350;
+    }
+
+    /* Answer overlay — initially hidden (translated and clipped) */
+    .answer {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 12px;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.97), #fff);
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(12,10,12,0.06);
+      transform: translateY(18px) scale(0.98);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        transform 360ms cubic-bezier(.2,.9,.2,1),
+        opacity 320ms ease,
+        box-shadow 320ms ease;
+      border: 1px solid rgba(140,60,70,0.04);
+      color: #3b2a33;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    /* reveal on hover or keyboard focus-within */
+    .card:hover .answer,
+    .card:focus-within .answer,
+    .card:active .answer {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Small decorative accent that transitions */
+    .accent-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 6px;
+      width: 24%;
+      background: linear-gradient(90deg, rgba(173,47,82,1), rgba(255,140,100,0.85));
+      transition: width 420ms cubic-bezier(.2,.9,.2,1);
+    }
+    .card:hover .accent-bar,
+    .card:focus-within .accent-bar { width: 100%; }
+
+    /* Make cards keyboard-focusable */
+    .card { cursor: pointer; }
+    .card[tabindex] { -webkit-user-select: none; -moz-user-select:none; user-select:none; }
+
+    /* Footer / instructions */
+    footer.notes {
+      margin-top: 22px;
+      color: #7a3a4a;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width:540px){
+      header.title h1 { font-size: 1.2rem; }
+      .card { min-height: 140px; padding: 14px; }
+      .answer { bottom: 10px; left: 8px; right: 8px; padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="title">
+      <h1>Flashcards: HTML & CSS Review</h1>
+      <p>Hover or tab to a card to reveal the answer. An entry animation runs when the page opens.</p>
+    </header>
+
+    <main class="grid" role="list" aria-label="Flashcards grid">
+      <!-- Each card is keyboard-focusable: tabindex="0" -->
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q1">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q1">What does "HTML" stand for?</h3>
+        <p class="hint">A markup language.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          HTML stands for HyperText Markup Language. It is used to structure content on the web using tags like &lt;h1&gt;, &lt;p&gt;, &lt;a&gt;, and &lt;div&gt;.
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q2">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q2">What is the CSS box model?</h3>
+        <p class="hint">Think content, padding, border, margin.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          The CSS box model describes how elements are sized and spaced: content area, padding around it, border, and margin that separates it from other elements.
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q3">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q3">How do you center a block with CSS?</h3>
+        <p class="hint">Common with fixed width elements.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          For a block with a fixed width, set margin-left:auto and margin-right:auto (shorthand margin:0 auto). For flexible centering use Flexbox: display:flex; justify-content:center; align-items:center.
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q4">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q4">What property makes an element a flex container?</h3>
+        <p class="hint">Two words, first is 'display'.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          Use display: flex (or display: inline-flex) on the parent to create a Flexbox container. Then use flex properties on the children for layout control.
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q5">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q5">What's the difference between padding and margin?</h3>
+        <p class="hint">One is inside the border, one is outside.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          Padding adds space inside the element's border (between content and border). Margin adds space outside the border (between this element and others).
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q6">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q6">How can you make text bold with CSS?</h3>
+        <p class="hint">Use font-weight.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          Use the font-weight property. Common values: font-weight:700 or font-weight:bold. Use semantic &lt;strong&gt; in HTML where appropriate for meaning.
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q7">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q7">What does :hover pseudo-class do?</h3>
+        <p class="hint">A user interaction state.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          The :hover pseudo-class applies styles when the user's pointing device hovers over an element. It's commonly used to change colors, show tooltips, or reveal content on hover.
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q8">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q8">How do you include a Google Font in your page?</h3>
+        <p class="hint">Use &lt;link&gt; in the head or @import.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          Add a &lt;link href="https://fonts.googleapis.com/..." rel="stylesheet"&gt; in the &lt;head&gt;, then use font-family in CSS. Avoid @import for performance if possible.
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q9">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q9">What CSS property controls stacking order?</h3>
+        <p class="hint">It works with positioned elements.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          The z-index property controls stacking order of positioned elements (position: relative/absolute/fixed/sticky). Higher z-index appears above lower ones.
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" role="listitem" aria-labelledby="q10">
+        <div class="accent-bar" aria-hidden="true"></div>
+        <h3 class="question" id="q10">Why use semantic HTML?</h3>
+        <p class="hint">Accessibility & clarity.</p>
+        <div class="answer" role="region" aria-label="Answer">
+          Semantic HTML (e.g., &lt;header&gt;, &lt;main&gt;, &lt;article&gt;, &lt;nav&gt;) improves accessibility, SEO, and makes the document structure clearer to other developers and browsers.
+        </div>
+      </article>
+    </main>
+
+    <footer class="notes">
+      Tip: You can navigate the cards with Tab and reveal answers by pressing Enter / Space (focus will show the answer).
+    </footer>
+  </div>
+</body>
+</html>
