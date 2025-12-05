@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CSS3 Image Projects — Effects Gallery</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+/* Embedded styles from styles.css - so the page is self-contained */
+:root{
+  --bg: #fff8fa;
+  --card-bg: #ffffff;
+  --accent: #b23b55;
+  --muted: #7a3a4a;
+  --gap: 18px;
+  --max-width: 1100px;
+}
+* { box-sizing: border-box; margin:0; padding:0; }
+html,body { height:100%; background:var(--bg); font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; color:#3b262b; -webkit-font-smoothing:antialiased; }
+.container { width:92%; max-width:var(--max-width); margin:24px auto; }
+.site-header { background: linear-gradient(90deg,#fff0f4,#ffe8ef); padding:18px; border-radius:10px; margin-bottom:18px; box-shadow:0 6px 18px rgba(20,10,12,0.04); }
+.site-header h1 { color:var(--accent); font-size:1.25rem; margin-bottom:6px; }
+.lead { color: #5c2a37; }
+.gallery { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:var(--gap); align-items:start; }
+.card { background:var(--card-bg); padding:12px; border-radius:10px; border:1px solid rgba(90,30,45,0.04); box-shadow:0 10px 26px rgba(18,12,14,0.04); text-align:center; overflow:visible; position:relative; }
+.card img { display:block; width:100%; height:auto; border-radius:8px; }
+.card figcaption { margin-top:10px; color:var(--muted); font-weight:600; font-size:0.95rem; }
+/* Project styles */
+.proj-dino { position:relative; background: linear-gradient(180deg,#fffdfd,#fff8fb); padding:18px; }
+.proj-dino img { width: 85%; margin: 0 auto; filter: drop-shadow(0 18px 30px rgba(0,0,0,0.35)) saturate(1.05) contrast(1.03); transition: transform 220ms ease, filter 220ms ease; display:block; }
+.proj-dino::after { content:""; position:absolute; inset:12px; border-radius:8px; pointer-events:none; background: radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.0) 55%, rgba(0,0,0,0.30) 100%); mix-blend-mode:multiply; opacity:0.9; }
+.proj-dino:hover img { transform: translateY(-6px) scale(1.02); filter: drop-shadow(0 26px 38px rgba(0,0,0,0.42)) saturate(1.1) contrast(1.05); }
+.proj-penguins { position:relative; padding:12px; }
+.proj-penguins img { filter: contrast(1.06) saturate(0.85) brightness(1.01) hue-rotate(-10deg); border-radius:6px; transform: scale(1.01); }
+.proj-penguins::before { content:""; position:absolute; inset:8px; border-radius:10px; pointer-events:none; box-shadow: inset 0 30px 60px rgba(255,255,255,0.45), inset 0 -6px 14px rgba(20,50,80,0.04); }
+.proj-penguins::after { content:""; position:absolute; left:0; right:0; bottom:0; height:12%; background: linear-gradient(180deg, rgba(255,255,255,0.0), rgba(240,250,255,0.95)); pointer-events:none; border-bottom-left-radius:10px; border-bottom-right-radius:10px; }
+.proj-field .field { position: relative; width: 100%; padding-top: 36%; border-radius: 8px; overflow: hidden; background-image: url("images/football_field.jpg"); background-size: cover; background-position: center; box-shadow: inset 0 0 60px rgba(0,0,0,0.16), 0 12px 28px rgba(0,0,0,0.12); border: 2px solid rgba(0,0,0,0.06); }
+.proj-field .field .overlay { position: absolute; left: 12%; top: 18%; width: 56%; transform: rotate(-6deg); mix-blend-mode: multiply; filter: saturate(1.1) contrast(1.05) brightness(1.02); opacity: 0.95; pointer-events: none; border-radius: 6px; }
+.proj-field .field::after { content:""; position:absolute; inset:0; pointer-events:none; background: radial-gradient(ellipse at center, rgba(255,255,255,0.0) 40%, rgba(255,255,255,0.02) 60%, rgba(0,0,0,0.08) 100%); mix-blend-mode: overlay; }
+.proj-butterfly { position:relative; padding:12px; }
+.proj-butterfly img { filter: grayscale(0.06) contrast(1.06) saturate(1.05); width:100%; display:block; border-radius:6px; }
+.proj-butterfly::after { content:""; position:absolute; inset:12px; border-radius:6px; pointer-events:none; background: linear-gradient(135deg, rgba(255,140,60,0.44), rgba(178,59,85,0.28)); mix-blend-mode: screen; opacity:0.92; }
+.proj-butterfly:hover img { filter: grayscale(0) contrast(1.08) saturate(1.15) brightness(1.03); transform: scale(1.01); transition: transform 220ms ease, filter 220ms ease; }
+.proj-frost .frost { position: relative; border-radius: 10px; overflow: hidden; height: 0; padding-bottom: 66%; background: #faf7f8; }
+.proj-frost .frost img { position:absolute; inset:0; width:110%; height:110%; object-fit:cover; transform:scale(1.06); }
+.proj-frost .frost img:nth-child(1) { filter: blur(6px) brightness(0.92) saturate(0.9); left:-5%; top:-5%; }
+.proj-frost .frost .fg { width:60%; left:20%; top:18%; border-radius:8px; box-shadow:0 10px 26px rgba(8,6,12,0.28); border:6px solid rgba(255,255,255,0.6); transform:translateZ(0); position:absolute; object-fit:cover; filter: contrast(1.04) saturate(1.06); }
+.proj-polygon { padding:14px; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,#fff,#fffafc); }
+.proj-polygon img { width: 110%; transform: rotate(-5deg) scale(1.02); clip-path: polygon(4% 8%, 92% 2%, 98% 78%, 70% 96%, 8% 84%); filter: drop-shadow(0 14px 28px rgba(0,0,0,0.16)) contrast(1.02) saturate(1.02); border-radius:6px; position:relative; display:block; }
+.proj-polygon::after { content:""; position:absolute; inset:14px; border-radius:8px; pointer-events:none; background-image: linear-gradient(transparent 90%, rgba(0,0,0,0.02) 100%), repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 6px); mix-blend-mode: overlay; opacity:0.5; }
+.proj-seagull { padding:14px; background: linear-gradient(180deg,#fff,#fdfdfd); }
+.proj-seagull img { width: 88%; margin: 0 auto; display:block; filter: drop-shadow(0 18px 30px rgba(0,0,0,0.28)) contrast(1.04) saturate(1.05); transition: transform 260ms ease, filter 260ms ease; position: relative; z-index: 1; }
+.proj-seagull::before { content: ""; position: absolute; left: 6%; top: 18%; width: 80%; height: 60%; border-radius: 8px; background: linear-gradient(90deg, rgba(255,255,255,0.0), rgba(255,255,255,0.0)); pointer-events: none; filter: blur(8px) opacity(0.45); mix-blend-mode: multiply; transform: translateX(18px) rotate(-6deg); z-index: 0; }
+.proj-seagull::after { content: ""; position: absolute; inset: 12px; pointer-events: none; border-radius: 8px; background: radial-gradient(circle at 70% 20%, rgba(255,255,255,0.6), rgba(255,255,255,0.0) 40%); mix-blend-mode: screen; z-index: 2; }
+.proj-seagull:hover img { transform: translateX(6px) scale(1.02); filter: drop-shadow(0 24px 34px rgba(0,0,0,0.36)) saturate(1.08); }
+.proj-tic img { width: 68%; margin: 8px auto 0; display:block; filter: contrast(1.06) saturate(0.1) brightness(0.95); transition: filter 200ms ease, transform 200ms ease; position: relative; }
+.proj-tic::after { content: ""; position: absolute; left: 50%; top: 48%; width: 22%; height: 22%; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle, rgba(220,20,60,0.95) 0%, rgba(220,20,60,0.65) 40%, rgba(220,20,60,0.18) 60%, transparent 100%); mix-blend-mode: screen; pointer-events: none; filter: blur(6px); z-index: 2; }
+.proj-tic:hover img { filter: contrast(1.06) saturate(1.05) brightness(1.02) transform: scale(1.03); }
+.proj-stage { padding:12px; background: linear-gradient(180deg,#fff7f7,#fff4f6); }
+.proj-stage img { width:100%; display:block; border-radius:6px; filter: contrast(1.05) saturate(1.06) brightness(0.98); }
+.proj-stage::before, .proj-stage::after { content: ""; position: absolute; left: 0; right: 0; height: 70%; pointer-events: none; mix-blend-mode: screen; opacity: 0.9; z-index: 2; }
+.proj-stage::before { top: 6%; background: radial-gradient(ellipse at 35% 8%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.0) 30%), radial-gradient(ellipse at 65% 8%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.0) 30%); transform: translateY(-8%); }
+.proj-stage::after { top: 0; background: linear-gradient(180deg, rgba(0,0,0,0.18) 40%, rgba(0,0,0,0.45) 100%); border-radius: 8px; mix-blend-mode: multiply; opacity: 0.45; }
+.proj-stage img { box-shadow: inset 0 -36px 60px rgba(0,0,0,0.28); }
+@media (max-width:720px){ .proj-dino img { width:95%; } .proj-field .field { padding-top:40%; } .proj-field .field .overlay { left:10%; width:70%; top:14%; transform:rotate(0deg); } .proj-frost .frost .fg { width:72%; left:14%; top:14%; } .proj-tic img { width: 84%; } .proj-seagull img { width: 92%; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>CSS3 Image Effects — Projects (use only CSS)</h1>
+      <p class="lead">Place the source images in an images/ folder next to this file. All visual changes are done with CSS only.</p>
+    </div>
+  </header>
+
+  <main class="container gallery" role="main" aria-label="CSS image projects gallery">
+    <!-- Project A: Dino — shadow, glow, and scale spotlight -->
+    <figure class="card proj-dino">
+      <img src="images/dino.png" alt="Green cartoon dinosaur (source image)" />
+      <figcaption>Project A — Dino: soft glow, drop-shadow, subtle vignette</figcaption>
+    </figure>
+
+    <!-- Project B: Penguins — icy frame, cool desaturation, soft blur vignette -->
+    <figure class="card proj-penguins">
+      <img src="images/penguins.jpg" alt="Emperor penguin with chicks (source image)">
+      <figcaption>Project B — Penguins: cool/icy look with vignette and soft border</figcaption>
+    </figure>
+
+    <!-- Project C: Football field + overlay PNG (tic-tac-toe) -->
+    <figure class="card proj-field">
+      <div class="field">
+        <!-- Background is the football_field.jpg via CSS; overlay PNG positioned -->
+        <img class="overlay" src="images/tic-tac-toe.png" alt="tic tac toe overlay (PNG)">
+      </div>
+      <figcaption>Project C — Football field with PNG overlay and blend</figcaption>
+    </figure>
+
+    <!-- Project D: Butterfly — duotone / pop effect using blend + contrast -->
+    <figure class="card proj-butterfly">
+      <img src="images/butterfly.jpg" alt="Monarch butterfly (source image)">
+      <figcaption>Project D — Butterfly: duotone / increased pop using blend overlay</figcaption>
+    </figure>
+
+    <!-- Project E: Frosted focal crop (uses project5 or reuse penguins) -->
+    <figure class="card proj-frost">
+      <div class="frost">
+        <img src="images/project5.jpg" alt="Project 5 source image (background)">
+        <img class="fg" src="images/project5.jpg" alt="Project 5 focal crop">
+      </div>
+      <figcaption>Project E — Frosted background with sharp focal crop (duplicate source)</figcaption>
+    </figure>
+
+    <!-- Project F: Polygon crop with film grain overlay -->
+    <figure class="card proj-polygon">
+      <img src="images/project6.jpg" alt="Project 6 source image">
+      <figcaption>Project F — Polygon crop, slight tilt and film-grain via overlay</figcaption>
+    </figure>
+
+    <!-- NEW: Project G: Seagull — soft motion blur + highlight -->
+    <figure class="card proj-seagull">
+      <img src="images/seagull.png" alt="Seagull (source image)">
+      <figcaption>Project G — Seagull: motion feel with directional blur and rim lighting</figcaption>
+    </figure>
+
+    <!-- NEW: Project H: Tic-tac-toe small icon — center heart pop + tile shadow -->
+    <figure class="card proj-tic">
+      <img src="images/tictactoe2.png" alt="Tic-tac-toe heart grid (source)">
+      <figcaption>Project H — Tic-tac-toe: heart highlight and subtle tile shadows</figcaption>
+    </figure>
+
+    <!-- NEW: Project I: Stage — spotlight effect and deepened curtain color -->
+    <figure class="card proj-stage">
+      <img src="images/stage.png" alt="Stage with curtains and spotlights (source)">
+      <figcaption>Project I — Stage: dramatic spotlights, deeper red curtains and stage glow</figcaption>
+    </figure>
+  </main>
+
+  <footer class="site-footer container">
+    <p>
+      Files to add in your repo: this index.html, styles.css, and the images/ folder with the source files:
+      dino.png, penguins.jpg, football_field.jpg, tic-tac-toe.png, butterfly.jpg, project5.jpg, project6.jpg,
+      seagull.png, tictactoe2.png, stage.png
+    </p>
+    <p class="muted">Completed: 2025-12-05</p>
+  </footer>
+</body>
+</html>
